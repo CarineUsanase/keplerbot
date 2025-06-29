@@ -1,39 +1,46 @@
+// 🔁 Use the correct container for chat history
+const input = document.getElementById("user-input");
+const chatHistory = document.getElementById("chat-history");
+const sendButton = document.getElementById("send-button");
+
+// When the "Send" button is clicked
+sendButton.addEventListener("click", sendMessage);
+
 function sendMessage() {
-  const input = document.getElementById("user-input");
-  const chatBox = document.getElementById("chat-box");
   const userText = input.value.trim();
 
   if (userText === "") return;
 
-  // Show user's message
+  // ✅ Display user's message
   const userMessage = document.createElement("div");
-  userMessage.className = "message user";
-  userMessage.textContent = userText;
-  chatBox.appendChild(userMessage);
+  userMessage.className = "user-msg";
+  userMessage.textContent = `👤 You: ${userText}`;
+  chatHistory.appendChild(userMessage);
 
-  // Get bot response
+  // ✅ Get and display bot's reply
+  const botResponse = getBotResponse(userText);
   const botMessage = document.createElement("div");
-  botMessage.className = "message bot";
-  botMessage.textContent = getBotResponse(userText);
-  chatBox.appendChild(botMessage);
+  botMessage.className = "bot-msg";
+  botMessage.textContent = `🤖 Bot: ${botResponse}`;
+  chatHistory.appendChild(botMessage);
 
-  // Scroll to bottom
-  chatBox.scrollTop = chatBox.scrollHeight;
+  // ✅ Scroll to bottom
+  chatHistory.scrollTop = chatHistory.scrollHeight;
 
+  // ✅ Clear the input box
   input.value = "";
 }
 
-// Simple Q&A logic (next step: connect to your dataset or AI)
+// 🔍 Match the user's question to the best answer in qaData
 function getBotResponse(userInput) {
   const input = userInput.toLowerCase().trim();
 
-  // Try to find the best match using a basic similarity check
   let bestMatch = null;
   let highestMatchScore = 0;
 
   for (let i = 0; i < qaData.length; i++) {
     const question = qaData[i].question.toLowerCase();
-    let score = getSimilarityScore(input, question);
+    const score = getSimilarityScore(input, question);
 
     if (score > highestMatchScore) {
       highestMatchScore = score;
@@ -41,13 +48,14 @@ function getBotResponse(userInput) {
     }
   }
 
-  if (highestMatchScore > 0.5) { // only respond if there's a decent match
+  if (highestMatchScore > 0.5) {
     return bestMatch.answer;
   }
 
   return "Sorry, I don't know the answer to that yet. Try asking a different question.";
 }
-// Compare similarity between two strings using basic word matching
+
+// 🤝 Calculate similarity between input and stored question
 function getSimilarityScore(input, question) {
   const inputWords = input.split(" ");
   const questionWords = question.split(" ");
@@ -62,3 +70,7 @@ function getSimilarityScore(input, question) {
   return matchCount / questionWords.length;
 }
 
+// 🌓 Dark mode toggle
+function toggleDarkMode() {
+  document.body.classList.toggle("dark-mode");
+}
