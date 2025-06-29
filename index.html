@@ -7,23 +7,34 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+  <!-- Dark Mode Toggle Button -->
+  <button onclick="toggleDarkMode()" class="mode-toggle">🌓 Toggle Dark Mode</button>
+
+  <!-- Chatbot Container -->
   <div class="chat-container">
+
+    <!-- Chat Header -->
     <div class="chat-header">
-    <img src="assets/kepler2.png" alt="Kepler Logo" class="logo" />
+      <img src="assets/kepler2.png" alt="Kepler Logo" class="logo" />
       <h1>Ask Kepler!</h1>
       <p>Your friendly assistant for all admission questions</p>
     </div>
 
-    <div class="chat-box" id="chat-box">
-      <div class="message bot">Hello! 👋 I’m KeplerBot. Ask me anything about Kepler College.</div>
+    <!-- Chat History (chat messages will appear here) -->
+    <div id="chat-history" class="chat-history">
+      <div class="bot-msg">👋 Hello! I’m KeplerBot. Ask me anything about Kepler College.</div>
     </div>
 
-    <div class="chat-input-area">
+    <!-- Chat Input Section -->
+    <div class="chat-input">
       <input type="text" id="user-input" placeholder="Type your question..." />
-      <button onclick="sendMessage()">Send</button>
+      <button id="send-button">Send</button>
     </div>
+    
   </div>
 
+  <!-- Scripts -->
   <script src="data.js"></script>
   <script src="script.js"></script>
 </body>
